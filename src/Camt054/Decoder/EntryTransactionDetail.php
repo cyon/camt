@@ -3,12 +3,29 @@
 namespace Genkgo\Camt\Camt054\Decoder;
 
 use Genkgo\Camt\DTO;
+use Genkgo\Camt\Camt054\DTO\BankTransactionCode;
 use Genkgo\Camt\Decoder\EntryTransactionDetail as BaseDecoder;
 use \SimpleXMLElement;
 use Genkgo\Camt\Iban;
 
 class EntryTransactionDetail extends BaseDecoder
 {
+    public function addBankTransactionCode(DTO\EntryTransactionDetail $detail, SimpleXMLElement $xmlDetail)
+    {
+        $bankTransactionCode = new BankTransactionCode();
+
+        if (isset($xmlDetail->BkTxCd->Domn->Cd)) {
+            $bankTransactionCode->setDomainCode($xmlDetail->BkTxCd->Domn->Cd);
+        }
+
+        if (isset($xmlDetail->BkTxCd->Domn->Fmly)) {
+            $bankTransactionCode->setFamilyCode($xmlDetail->BkTxCd->Domn->Fmly->Cd);
+            $bankTransactionCode->setSubfamilyCode($xmlDetail->BkTxCd->Domn->Fmly->SubFmlyCd);
+        }
+
+        $detail->setBankTransactionCode($bankTransactionCode);
+    }
+
     /**
      * {@inheritdoc}
      */
