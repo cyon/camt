@@ -15,12 +15,12 @@ class EntryTransactionDetail extends BaseDecoder
         $bankTransactionCode = new BankTransactionCode();
 
         if (isset($xmlDetail->BkTxCd->Domn->Cd)) {
-            $bankTransactionCode->setDomainCode($xmlDetail->BkTxCd->Domn->Cd);
+            $bankTransactionCode->setDomainCode((string)$xmlDetail->BkTxCd->Domn->Cd);
         }
 
         if (isset($xmlDetail->BkTxCd->Domn->Fmly)) {
-            $bankTransactionCode->setFamilyCode($xmlDetail->BkTxCd->Domn->Fmly->Cd);
-            $bankTransactionCode->setSubfamilyCode($xmlDetail->BkTxCd->Domn->Fmly->SubFmlyCd);
+            $bankTransactionCode->setFamilyCode((string)$xmlDetail->BkTxCd->Domn->Fmly->Cd);
+            $bankTransactionCode->setSubfamilyCode((string)$xmlDetail->BkTxCd->Domn->Fmly->SubFmlyCd);
         }
 
         $detail->setBankTransactionCode($bankTransactionCode);
